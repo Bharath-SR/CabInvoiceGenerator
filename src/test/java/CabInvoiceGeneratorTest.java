@@ -1,4 +1,5 @@
 import com.bridgeLabz.CabInvoiceGenerator.CabInvoiceGenerator;
+import com.bridgeLabz.CabInvoiceGenerator.Rides;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,5 +21,11 @@ public class CabInvoiceGeneratorTest {
         double fare = invoiceGen.calculateFare(distance, time );
         Assert.assertEquals(5,fare,0.0);
     }
-
+    @Test
+    public void givenDistanceAndTime_shouldReturnTotalFareCalculate(){
+        CabInvoiceGenerator invoiceGen = new CabInvoiceGenerator();
+        Rides[] rides = { new Rides(2.0, 5), new Rides(0.1, 1) };
+        double fare = invoiceGen.calculateFare(rides);
+        Assert.assertEquals(30, fare,0.0);
+    }
 }
