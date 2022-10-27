@@ -1,7 +1,4 @@
-import com.bridgeLabz.CabInvoiceGenerator.CabInvoiceGenerator;
-import com.bridgeLabz.CabInvoiceGenerator.InvoiceSummary;
-import com.bridgeLabz.CabInvoiceGenerator.RideRepo;
-import com.bridgeLabz.CabInvoiceGenerator.Rides;
+import com.bridgeLabz.CabInvoiceGenerator.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -50,5 +47,25 @@ public class CabInvoiceGeneratorTest {
         InvoiceSummary expectedSummary = new InvoiceSummary(2,30.0);
         Assert.assertEquals(expectedSummary, invoiceSummary);
 
+    }
+    @Test
+    public void givenMultipleRides_whenGivenWithCategories_shouldReturnInvoiceAccordingToType() {
+        CabInvoiceGenerator invoiceGen = new CabInvoiceGenerator();
+        Rides[] rides = {new Rides(2.0 , 5) , new Rides(5.0 , 8)};
+
+        String category = "Premium";
+
+        if(category == "Premium") {
+            PremiumRides premiumInvoice = new PremiumRides();
+
+            InvoiceSummary premiumInvoiceSummary = premiumInvoice.calculateFare(rides);
+            InvoiceSummary expectedPremiumInvoiceSummary = new InvoiceSummary(2, 131.0);
+            Assert.assertEquals(expectedPremiumInvoiceSummary, premiumInvoiceSummary);
+        }
+        else {
+            InvoiceSummary invoiceSummary = invoiceGen.calculateFare(rides);
+            InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+            Assert.assertEquals(expectedInvoiceSummary, invoiceSummary);
+        }
     }
 }
